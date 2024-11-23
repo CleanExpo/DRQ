@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "Page Not Found",
+      "description": "The page you are looking for does not exist.",
+      "quick-links": "Quick Links"
+    },
+    "title": "Something went wrong",
+    "description": "We're sorry, but something went wrong. Please try again or contact support if the problem persists.",
+    "reload": "Reload Page",
+    "home": "Return Home"
+  },
+  "emergency": {
+    "need-help": "Need Emergency Help?",
+    "call-now": "Call Now",
+    "call": "Call Emergency Line",
+    "available": "Available 24/7"
+  },
+  "service": {
+    "water-damage": "Water Damage",
+    "fire-damage": "Fire Damage",
+    "mould-remediation": "Mould Remediation",
+    "emergency-response": "Emergency Response",
+    "restoration": "Restoration Services"
+  },
+  "navigation": {
+    "service-areas": "Service Areas",
+    "services": "Services",
+    "contact": "Contact",
+    "emergency": "Emergency",
+    "home": "Home"
+  },
+  "locations": {
+    "brisbane": "Brisbane",
+    "gold-coast": "Gold Coast",
+    "ipswich": "Ipswich"
+  },
+  "common": {
+    "learn-more": "Learn More",
+    "contact-us": "Contact Us",
+    "call-emergency": "Call Emergency Line",
+    "available-24-7": "Available 24/7",
+    "service-areas": "Service Areas",
+    "recent-incidents": "Recent Incidents"
+  }
+}

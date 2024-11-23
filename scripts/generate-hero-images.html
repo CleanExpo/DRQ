@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Hero Images</title>
+</head>
+<body>
+    <canvas id="canvas" width="1920" height="1080"></canvas>
+    <script>
+        const locations = ['brisbane', 'gold-coast', 'ipswich'];
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        locations.forEach(location => {
+            // Clear canvas
+            ctx.fillStyle = '#2c5282'; // Dark blue background
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add gradient overlay
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, 'rgba(0,0,0,0.4)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0.7)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add location name
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 120px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(location.replace('-', ' ').toUpperCase(), canvas.width/2, canvas.height/2);
+
+            // Save as image
+            const link = document.createElement('a');
+            link.download = `${location}-hero.jpg`;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        });
+    </script>
+</body>
+</html>

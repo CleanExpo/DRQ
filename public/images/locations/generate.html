@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Location Hero Images</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Location Hero Image Generator</h1>
+    <canvas id="canvas" width="1920" height="1080"></canvas>
+    <br>
+    <button onclick="generateAll()">Generate All Images</button>
+
+    <script>
+        const locations = [
+            { name: 'Brisbane', filename: 'brisbane-hero.jpg' },
+            { name: 'Gold Coast', filename: 'gold-coast-hero.jpg' },
+            { name: 'Ipswich', filename: 'ipswich-hero.jpg' }
+        ];
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        function generateImage(location) {
+            // Clear canvas
+            ctx.fillStyle = '#2c5282'; // Dark blue background
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add gradient overlay
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, 'rgba(0,0,0,0.4)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0.7)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add location name
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 120px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(location.name.toUpperCase(), canvas.width/2, canvas.height/2);
+
+            // Add subtitle
+            ctx.font = 'normal 60px Arial';
+            ctx.fillText('Emergency Response Services', canvas.width/2, canvas.height/2 + 100);
+
+            // Save as image
+            const link = document.createElement('a');
+            link.download = location.filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+
+        function generateAll() {
+            locations.forEach((location, index) => {
+                setTimeout(() => generateImage(location), index * 500);
+            });
+        }
+    </script>
+</body>
+</html>
