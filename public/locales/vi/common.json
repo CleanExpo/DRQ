@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "Không Tìm Thấy Trang",
+      "description": "Trang bạn đang tìm kiếm không tồn tại.",
+      "quick-links": "Liên Kết Nhanh"
+    },
+    "title": "Đã Xảy Ra Lỗi",
+    "description": "Chúng tôi rất tiếc, đã xảy ra lỗi. Vui lòng thử lại hoặc liên hệ hỗ trợ nếu vấn đề vẫn tiếp tục.",
+    "reload": "Tải Lại Trang",
+    "home": "Trở Về Trang Chủ"
+  },
+  "emergency": {
+    "need-help": "Cần Trợ Giúp Khẩn Cấp?",
+    "call-now": "Gọi Ngay",
+    "call": "Gọi Đường Dây Khẩn Cấp",
+    "available": "Phục vụ 24/7"
+  },
+  "service": {
+    "water-damage": "Thiệt Hại Do Nước",
+    "fire-damage": "Thiệt Hại Do Hỏa Hoạn",
+    "mould-remediation": "Xử Lý Nấm Mốc",
+    "emergency-response": "Ứng Phó Khẩn Cấp",
+    "restoration": "Dịch Vụ Phục Hồi"
+  },
+  "navigation": {
+    "service-areas": "Khu Vực Phục Vụ",
+    "services": "Dịch Vụ",
+    "contact": "Liên Hệ",
+    "emergency": "Khẩn Cấp",
+    "home": "Trang Chủ"
+  },
+  "locations": {
+    "brisbane": "Brisbane",
+    "gold-coast": "Gold Coast",
+    "ipswich": "Ipswich"
+  },
+  "common": {
+    "learn-more": "Tìm Hiểu Thêm",
+    "contact-us": "Liên Hệ Chúng Tôi",
+    "call-emergency": "Gọi Đường Dây Khẩn Cấp",
+    "available-24-7": "Phục vụ 24/7",
+    "service-areas": "Khu Vực Phục Vụ",
+    "recent-incidents": "Sự Cố Gần Đây"
+  }
+}

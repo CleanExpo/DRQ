@@ -2,14 +2,10 @@
 
 import React from 'react';
 import { Metadata } from 'next';
-import { 
-  generateServiceSchema, 
-  generateOrganizationSchema,
-  generateLocalBusinessSchema,
-  generateServicePageSchema
-} from '../../utils/schemaGenerator';
+import { generateAllSchemas } from '../../utils/schemaGenerator';
 import { ServicePage, Location } from '../../types/serviceTypes';
 import { siteMetadata } from '../../config/project.config';
+import { Locale, getLanguageDirection } from '../../config/i18n.config';
 
 interface PageSEOProps {
   title: string;
@@ -22,6 +18,7 @@ interface PageSEOProps {
     [key: string]: string;
   };
   pageType?: 'service' | 'location' | 'home' | 'contact';
+  locale: Locale;
 }
 
 export const PageSEO: React.FC<PageSEOProps> = ({
@@ -32,26 +29,26 @@ export const PageSEO: React.FC<PageSEOProps> = ({
   location,
   noindex = false,
   alternateLanguages,
-  pageType = 'home'
+  pageType = 'home',
+  locale
 }) => {
+  const isRTL = getLanguageDirection(locale) === 'rtl';
+
   // Generate all applicable schemas based on page type and available data
-  const generateSchemas = () => {
-    const schemas = [generateOrganizationSchema()];
+  const schemas = generateAllSchemas(servicePage!, location);
 
-    if (servicePage && location) {
-      schemas.push(generateServiceSchema(servicePage, location));
-    } else if (servicePage) {
-      schemas.push(generateServicePageSchema(servicePage));
-    }
-
-    if (location) {
-      schemas.push(generateLocalBusinessSchema(location));
-    }
-
-    return schemas;
-  };
-
-  const schemas = generateSchemas();
+  // Add language annotations to schemas
+  const localizedSchemas = schemas.map(schema => ({
+    ...schema,
+    inLanguage: locale,
+    ...(alternateLanguages && {
+      translation: Object.entries(alternateLanguages).map(([lang, url]) => ({
+        '@type': 'WebPage',
+        inLanguage: lang,
+        url: `${siteMetadata.baseUrl}${url}`
+      }))
+    })
+  }));
 
   // Construct full title with site name
   const fullTitle = `${title} | ${siteMetadata.title}`;
@@ -74,6 +71,14 @@ export const PageSEO: React.FC<PageSEOProps> = ({
     'geo.placename': 'Queensland'
   };
 
+  // Convert locale to OpenGraph format (e.g., 'en-AU' -> 'en_AU')
+  const ogLocale = locale.replace('-', '_');
+
+  // Get alternate locales for OpenGraph
+  const ogAlternateLocales = alternateLanguages ? 
+    Object.keys(alternateLanguages).map(lang => lang.replace('-', '_')) : 
+    [];
+
   const metadata: Metadata = {
     title: fullTitle,
     description: description,
@@ -84,7 +89,7 @@ export const PageSEO: React.FC<PageSEOProps> = ({
       url: canonicalUrl,
       siteName: siteMetadata.title,
       type: pageType === 'home' ? 'website' : 'article',
-      locale: 'en_AU',
+      locale: ogLocale,
       images: [
         {
           url: `${siteMetadata.baseUrl}/images/og-image.jpg`,
@@ -101,14 +106,18 @@ export const PageSEO: React.FC<PageSEOProps> = ({
       site: '@DisasterRecQLD',
       creator: '@DisasterRecQLD'
     },
-    alternates: alternateLanguages ? {
-      languages: Object.fromEntries(
-        Object.entries(alternateLanguages).map(([lang, url]) => [
-          lang,
-          `${siteMetadata.baseUrl}${url}`
-        ])
-      )
-    } : undefined,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: alternateLanguages ? {
+        ...Object.fromEntries(
+          Object.entries(alternateLanguages).map(([lang, url]) => [
+            lang,
+            `${siteMetadata.baseUrl}${url}`
+          ])
+        ),
+        [locale]: canonicalUrl
+      } : { [locale]: canonicalUrl }
+    },
     other: {
       ...geoData,
       'emergency.service': 'true',
@@ -116,16 +125,41 @@ export const PageSEO: React.FC<PageSEOProps> = ({
       'emergency.response': 'immediate',
       'business.type': 'EmergencyService',
       'service.area': 'Queensland',
-      'contact.phone': '1300 309 361',
+      'contact.phone': siteMetadata.company.phone,
       'contact.hours': '24/7',
       'rating.aggregate': '4.9',
-      'rating.count': '150+'
+      'rating.count': '150+',
+      'content-language': locale,
+      'og:locale:alternate': ogAlternateLocales.length > 0 ? ogAlternateLocales.join(',') : locale,
+      'dir': isRTL ? 'rtl' : 'ltr'
     }
   };
 
   return (
     <>
-      {schemas.map((schema, index) => (
+      {/* Language alternates */}
+      <link rel="canonical" href={canonicalUrl} />
+      {alternateLanguages && Object.entries(alternateLanguages).map(([lang, url]) => (
+        <link 
+          key={lang}
+          rel="alternate"
+          hrefLang={lang}
+          href={`${siteMetadata.baseUrl}${url}`}
+        />
+      ))}
+      <link 
+        rel="alternate" 
+        hrefLang={locale} 
+        href={canonicalUrl}
+      />
+      <link 
+        rel="alternate" 
+        hrefLang="x-default" 
+        href={`${siteMetadata.baseUrl}/en-AU${canonical || ''}`}
+      />
+
+      {/* Schema.org JSON-LD */}
+      {localizedSchemas.map((schema, index) => (
         <script 
           key={index}
           type="application/ld+json"

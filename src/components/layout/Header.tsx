@@ -6,12 +6,13 @@ import { usePathname } from 'next/navigation';
 import { LanguageSelector } from './LanguageSelector';
 import { EmergencyContact } from './EmergencyContact';
 import { navigationItems } from '@/config/navigation';
+import { type Locale } from '@/config/i18n.config';
 
 interface HeaderProps {
-  currentLanguage: string;
+  currentLanguage: Locale;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentLanguage }) => {
+const Header = ({ currentLanguage }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -73,8 +74,10 @@ export const Header: React.FC<HeaderProps> = ({ currentLanguage }) => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
               aria-controls="mobile-menu"
-              aria-label={`${isMenuOpen ? 'Close' : 'Open'} main menu`}
+              aria-expanded={isMenuOpen ? "true" : "false"}
+              aria-label={isMenuOpen ? 'Close main menu' : 'Open main menu'}
               data-state={isMenuOpen ? 'open' : 'closed'}
+              type="button"
             >
               <svg
                 className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
@@ -156,3 +159,6 @@ export const Header: React.FC<HeaderProps> = ({ currentLanguage }) => {
     </header>
   );
 };
+
+export { Header };
+export default Header;

@@ -1,265 +1,152 @@
-import { DisasterEvent } from '../types/serviceTypes';
+import type { ServiceArea } from '../types/serviceTypes';
 
-interface Region {
-  name: string;
-  suburbs: string[];
-  historicalEvents?: DisasterEvent[];
-  primaryServices?: string[];
-  responseTimesByService?: {
-    [key: string]: string;
-  };
-}
-
-export interface ServiceArea {
-  name: string;
-  slug: string;
-  regions: Region[];
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-  emergencyResponseTime: string;
-  serviceRadius: number;
-  population?: number;
-  primaryHazards?: string[];
-  serviceAvailability: {
-    standard: boolean;
-    emergency: boolean;
-    responseTime: {
-      emergency: string;
-      standard: string;
-    };
-  };
-}
-
-export const serviceAreas: Record<string, ServiceArea> = {
-  brisbane: {
-    name: "Brisbane",
-    slug: "brisbane",
-    coordinates: {
-      lat: -27.4698,
-      lng: 153.0251
-    },
-    emergencyResponseTime: "30-60 minutes",
-    serviceRadius: 50,
-    population: 2560720,
-    primaryHazards: ["flooding", "storms", "heatwaves"],
-    serviceAvailability: {
-      standard: true,
-      emergency: true,
-      responseTime: {
-        emergency: "30-60 minutes",
-        standard: "Same day"
-      }
-    },
-    regions: [
-      {
-        name: "Brisbane CBD",
-        suburbs: ["City", "Spring Hill", "Fortitude Valley", "South Brisbane", "West End"],
-        primaryServices: ["Water Damage", "Storm Response", "Commercial Services"],
-        responseTimesByService: {
-          "Water Damage": "30 minutes",
-          "Fire Damage": "45 minutes",
-          "Mould Remediation": "24 hours"
-        },
-        historicalEvents: [
-          {
-            date: "2011-01-13",
-            type: "flood",
-            description: "Major Brisbane River flood affecting CBD and surrounding areas",
-            severity: 5
-          },
-          {
-            date: "2022-02-28",
-            type: "flood",
-            description: "Significant flooding across Brisbane metropolitan area",
-            severity: 4
-          }
-        ]
-      },
-      {
-        name: "North Brisbane",
-        suburbs: ["Chermside", "Aspley", "Kedron", "Nundah", "Northgate"],
-        primaryServices: ["Residential Services", "Storm Response"],
-        responseTimesByService: {
-          "Water Damage": "45 minutes",
-          "Fire Damage": "45 minutes",
-          "Mould Remediation": "24 hours"
-        },
-        historicalEvents: [
-          {
-            date: "2022-02-27",
-            type: "flood",
-            description: "Kedron Brook flooding affecting multiple suburbs",
-            severity: 3
-          }
-        ]
-      }
-    ]
-  },
-  goldCoast: {
-    name: "Gold Coast",
-    slug: "gold-coast",
-    coordinates: {
-      lat: -28.0167,
-      lng: 153.4000
-    },
-    emergencyResponseTime: "30-60 minutes",
-    serviceRadius: 40,
-    population: 679127,
-    primaryHazards: ["coastal flooding", "storms", "erosion"],
-    serviceAvailability: {
-      standard: true,
-      emergency: true,
-      responseTime: {
-        emergency: "30-60 minutes",
-        standard: "Same day"
-      }
-    },
-    regions: [
-      {
-        name: "Coastal Strip",
-        suburbs: ["Surfers Paradise", "Broadbeach", "Main Beach", "Miami", "Burleigh Heads"],
-        primaryServices: ["Water Damage", "Storm Response", "Commercial Services"],
-        responseTimesByService: {
-          "Water Damage": "30 minutes",
-          "Fire Damage": "45 minutes",
-          "Mould Remediation": "24 hours"
-        },
-        historicalEvents: [
-          {
-            date: "2017-03-31",
-            type: "flood",
-            description: "Cyclone Debbie aftermath flooding",
-            severity: 4
-          }
-        ]
-      }
-    ]
-  },
-  sunshineCoast: {
-    name: "Sunshine Coast",
-    slug: "sunshine-coast",
-    coordinates: {
-      lat: -26.6500,
-      lng: 153.0666
-    },
-    emergencyResponseTime: "30-60 minutes",
-    serviceRadius: 45,
-    population: 351424,
-    primaryHazards: ["coastal storms", "flooding", "bushfires"],
-    serviceAvailability: {
-      standard: true,
-      emergency: true,
-      responseTime: {
-        emergency: "30-60 minutes",
-        standard: "Same day"
-      }
-    },
-    regions: [
-      {
-        name: "Coastal Region",
-        suburbs: ["Maroochydore", "Mooloolaba", "Caloundra", "Coolum Beach", "Noosa"],
-        primaryServices: ["Water Damage", "Storm Response", "Mould Remediation"],
-        responseTimesByService: {
-          "Water Damage": "45 minutes",
-          "Fire Damage": "45 minutes",
-          "Mould Remediation": "24 hours"
-        },
-        historicalEvents: [
-          {
-            date: "2022-02-28",
-            type: "flood",
-            description: "Major flooding affecting Sunshine Coast region",
-            severity: 4
-          }
-        ]
-      }
-    ]
-  },
-  cairns: {
-    name: "Cairns",
-    slug: "cairns",
-    coordinates: {
-      lat: -16.9186,
-      lng: 145.7781
-    },
-    emergencyResponseTime: "30-60 minutes",
-    serviceRadius: 40,
-    population: 153952,
-    primaryHazards: ["cyclones", "flooding", "storm surge"],
-    serviceAvailability: {
-      standard: true,
-      emergency: true,
-      responseTime: {
-        emergency: "30-60 minutes",
-        standard: "Same day"
-      }
-    },
-    regions: [
-      {
-        name: "Cairns City",
-        suburbs: ["Cairns City", "Portsmith", "Manunda", "Westcourt", "Parramatta Park"],
-        primaryServices: ["Cyclone Damage", "Water Damage", "Storm Response"],
-        responseTimesByService: {
-          "Water Damage": "30 minutes",
-          "Storm Damage": "30 minutes",
-          "Mould Remediation": "24 hours"
-        },
-        historicalEvents: [
-          {
-            date: "2019-01-31",
-            type: "flood",
-            description: "Monsoon trough causing widespread flooding",
-            severity: 4
-          }
-        ]
-      }
-    ]
+// Service radius constants
+export const SERVICE_RADIUS = {
+  priority: 25, // km
+  standard: 50, // km
+  extended: 75, // km
+  maxResponse: {
+    priority: 30, // minutes
+    standard: 45, // minutes
+    extended: 60  // minutes
   }
 };
 
-export const getServiceArea = (areaSlug: string): ServiceArea | undefined => {
-  return serviceAreas[areaSlug];
+// Helper function for radius calculations
+function toRad(degrees: number): number {
+  return degrees * (Math.PI/180);
+}
+
+// Service radius calculator
+export const calculateServiceRadius = {
+  fromPoint: (lat: number, lng: number, targetLat: number, targetLng: number): number => {
+    const R = 6371; // Earth's radius in km
+    const dLat = toRad(targetLat - lat);
+    const dLng = toRad(targetLng - lng);
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(toRad(lat)) * Math.cos(toRad(targetLat)) * 
+      Math.sin(dLng/2) * Math.sin(dLng/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const distance = R * c;
+    return Math.round(distance * 10) / 10; // Round to 1 decimal
+  },
+
+  isInRange: (
+    serviceCenterLat: number, 
+    serviceCenterLng: number, 
+    targetLat: number, 
+    targetLng: number, 
+    maxRadius: number
+  ): boolean => {
+    const distance = calculateServiceRadius.fromPoint(
+      serviceCenterLat, 
+      serviceCenterLng, 
+      targetLat, 
+      targetLng
+    );
+    return distance <= maxRadius;
+  }
 };
 
-export const getAllServiceAreas = (): ServiceArea[] => {
-  return Object.values(serviceAreas);
-};
-
-export const getNearestServiceArea = (lat: number, lng: number): ServiceArea => {
-  let nearest = Object.values(serviceAreas)[0];
-  let shortestDistance = calculateDistance(lat, lng, nearest.coordinates.lat, nearest.coordinates.lng);
-
-  Object.values(serviceAreas).forEach(area => {
-    const distance = calculateDistance(lat, lng, area.coordinates.lat, area.coordinates.lng);
-    if (distance < shortestDistance) {
-      shortestDistance = distance;
-      nearest = area;
+export const serviceAreas: ServiceArea[] = [
+  {
+    id: 'brisbane-cbd',
+    name: 'Brisbane CBD',
+    suburbs: [
+      'City', 'Spring Hill', 'Fortitude Valley', 'South Brisbane', 
+      'West End', 'Petrie Terrace', 'New Farm', 'Teneriffe', 'Newstead',
+      'Bowen Hills', 'Herston', 'Kelvin Grove', 'Red Hill', 'Paddington'
+    ],
+    postCodes: ['4000', '4006', '4059', '4064', '4101', '4102'],
+    emergencyInfo: {
+      responseTime: '15-30 minutes',
+      isAvailable: true,
+      phone: '1300 309 361',
+      emergencyLevel: 'high'
+    },
+    serviceCenter: {
+      lat: -27.4698,
+      lng: 153.0251,
+      address: '123 Adelaide St, Brisbane City QLD 4000'
+    },
+    coverage: {
+      primary: ['City Center', 'Inner North', 'Inner South'],
+      secondary: ['Inner West', 'Inner East']
     }
-  });
+  },
+  {
+    id: 'north-brisbane',
+    name: 'North Brisbane',
+    suburbs: [
+      'Chermside', 'Nundah', 'Aspley', 'Kedron', 'Stafford', 
+      'Everton Park', 'Albany Creek', 'Brendale', 'Bracken Ridge', 
+      'Brighton', 'Sandgate'
+    ],
+    postCodes: ['4032', '4034', '4035', '4017', '4018'],
+    emergencyInfo: {
+      responseTime: '20-40 minutes',
+      isAvailable: true,
+      phone: '1300 309 361',
+      emergencyLevel: 'medium'
+    },
+    serviceCenter: {
+      lat: -27.3853,
+      lng: 153.0351,
+      address: '456 Gympie Rd, Chermside QLD 4032'
+    },
+    coverage: {
+      primary: ['North Brisbane', 'Northside'],
+      secondary: ['Inner North', 'Moreton Bay South']
+    }
+  }
+];
 
-  return nearest;
-};
+// Coverage checker utility
+export const checkServiceCoverage = {
+  getEstimatedResponse: (distanceKm: number): number => {
+    if (distanceKm <= SERVICE_RADIUS.priority) return SERVICE_RADIUS.maxResponse.priority;
+    if (distanceKm <= SERVICE_RADIUS.standard) return SERVICE_RADIUS.maxResponse.standard;
+    return SERVICE_RADIUS.maxResponse.extended;
+  },
 
-export const isWithinServiceArea = (lat: number, lng: number, area: ServiceArea): boolean => {
-  const distance = calculateDistance(lat, lng, area.coordinates.lat, area.coordinates.lng);
-  return distance <= area.serviceRadius;
-};
+  isInServiceArea: (lat: number, lng: number): boolean => {
+    return serviceAreas.some(area => 
+      calculateServiceRadius.isInRange(
+        area.serviceCenter.lat,
+        area.serviceCenter.lng,
+        lat,
+        lng,
+        SERVICE_RADIUS.extended
+      )
+    );
+  },
 
-// Helper function to calculate distance between two points using Haversine formula
-const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-  const R = 6371; // Earth's radius in kilometers
-  const dLat = toRad(lat2 - lat1);
-  const dLon = toRad(lon2 - lon1);
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return R * c;
-};
+  getNearestServiceCenter: (lat: number, lng: number) => {
+    let nearest = {
+      center: serviceAreas[0].serviceCenter,
+      distance: Infinity
+    };
 
-const toRad = (value: number): number => {
-  return value * Math.PI / 180;
+    serviceAreas.forEach(area => {
+      const distance = calculateServiceRadius.fromPoint(
+        area.serviceCenter.lat,
+        area.serviceCenter.lng,
+        lat,
+        lng
+      );
+      
+      if (distance < nearest.distance) {
+        nearest = {
+          center: area.serviceCenter,
+          distance
+        };
+      }
+    });
+
+    return {
+      ...nearest,
+      estimatedResponse: checkServiceCoverage.getEstimatedResponse(nearest.distance)
+    };
+  }
 };

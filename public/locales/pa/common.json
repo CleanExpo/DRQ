@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "ਪੰਨਾ ਨਹੀਂ ਮਿਲਿਆ",
+      "description": "ਤੁਹਾਡਾ ਲੱਭਿਆ ਜਾ ਰਿਹਾ ਪੰਨਾ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।",
+      "quick-links": "ਤੇਜ਼ ਲਿੰਕ"
+    },
+    "title": "ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ",
+    "description": "ਮਾਫ਼ ਕਰਨਾ, ਪਰ ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।",
+    "reload": "ਪੰਨਾ ਰੀਫਰੈਸ਼ ਕਰੋ",
+    "home": "ਮੁੱਖ ਪੰਨੇ 'ਤੇ ਵਾਪਸ ਜਾਓ"
+  },
+  "emergency": {
+    "need-help": "ਐਮਰਜੈਂਸੀ ਮਦਦ ਚਾਹੀਦੀ ਹੈ?",
+    "call-now": "ਹੁਣੇ ਕਾਲ ਕਰੋ",
+    "call": "ਐਮਰਜੈਂਸੀ ਲਾਈਨ 'ਤੇ ਕਾਲ ਕਰੋ",
+    "available": "24/7 ਉਪਲਬਧ"
+  },
+  "service": {
+    "water-damage": "ਪਾਣੀ ਦਾ ਨੁਕਸਾਨ",
+    "fire-damage": "ਅੱਗ ਦਾ ਨੁਕਸਾਨ",
+    "mould-remediation": "ਫਫੂੰਦੀ ਦਾ ਇਲਾਜ",
+    "emergency-response": "ਐਮਰਜੈਂਸੀ ਪ੍ਰਤੀਕਿਰਿਆ",
+    "restoration": "ਬਹਾਲੀ ਸੇਵਾਵਾਂ"
+  },
+  "navigation": {
+    "service-areas": "ਸੇਵਾ ਖੇਤਰ",
+    "services": "ਸੇਵਾਵਾਂ",
+    "contact": "ਸੰਪਰਕ",
+    "emergency": "ਐਮਰਜੈਂਸੀ",
+    "home": "ਮੁੱਖ ਪੰਨਾ"
+  },
+  "locations": {
+    "brisbane": "ਬ੍ਰਿਸਬੇਨ",
+    "gold-coast": "ਗੋਲਡ ਕੋਸਟ",
+    "ipswich": "ਇਪਸਵਿਚ"
+  },
+  "common": {
+    "learn-more": "ਹੋਰ ਜਾਣੋ",
+    "contact-us": "ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
+    "call-emergency": "ਐਮਰਜੈਂਸੀ ਲਾਈਨ 'ਤੇ ਕਾਲ ਕਰੋ",
+    "available-24-7": "24/7 ਉਪਲਬਧ",
+    "service-areas": "ਸੇਵਾ ਖੇਤਰ",
+    "recent-incidents": "ਤਾਜ਼ਾ ਘਟਨਾਵਾਂ"
+  }
+}

@@ -88,13 +88,14 @@ export const siteMetadata = {
       type: 'State',
       name: 'Queensland',
       regions: [
-        'Brisbane',
-        'Gold Coast',
-        'Sunshine Coast',
-        'Ipswich',
-        'Toowoomba',
-        'Cairns',
-        'Townsville'
+        'Redlands',
+        'Brisbane City',
+        'Western Suburbs',
+        'Scenic Rim',
+        'Lockyer Valley',
+        'Logan',
+        'Springfield',
+        'Inner Brisbane'
       ]
     }
   },

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { PhoneLink } from '../common/PhoneLink';
 
 interface SearchResult {
   type: 'service' | 'location' | 'article';
@@ -39,8 +40,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-800">
         <p>{error}</p>
-        <a
-          href="tel:1300309361"
+        <PhoneLink
+          phone="1300309361"
           className="mt-4 inline-flex items-center text-red-600 hover:text-red-800"
         >
           <svg
@@ -57,7 +58,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             />
           </svg>
           Call Emergency: 1300 309 361
-        </a>
+        </PhoneLink>
       </div>
     );
   }
@@ -73,13 +74,13 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
           <p className="text-blue-800 mb-4">
             Our emergency response team is available 24/7.
           </p>
-          <a
-            href="tel:1300309361"
+          <PhoneLink
+            phone="1300309361"
             className="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-full
                      hover:bg-red-700 transition-colors duration-300 font-semibold"
           >
             Call 1300 309 361
-          </a>
+          </PhoneLink>
         </div>
       </div>
     );

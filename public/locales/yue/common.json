@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "找唔到網頁",
+      "description": "你搵緊嘅網頁唔存在。",
+      "quick-links": "快速連結"
+    },
+    "title": "出咗問題",
+    "description": "對唔住，出咗問題。請再試過，如果問題持續，請聯絡支援。",
+    "reload": "重新載入網頁",
+    "home": "返回主頁"
+  },
+  "emergency": {
+    "need-help": "需要緊急援助？",
+    "call-now": "即刻打電話",
+    "call": "打緊急熱線",
+    "available": "24小時服務"
+  },
+  "service": {
+    "water-damage": "水災損毀",
+    "fire-damage": "火災損毀",
+    "mould-remediation": "霉菌處理",
+    "emergency-response": "緊急應變",
+    "restoration": "修復服務"
+  },
+  "navigation": {
+    "service-areas": "服務地區",
+    "services": "服務",
+    "contact": "聯絡我哋",
+    "emergency": "緊急",
+    "home": "主頁"
+  },
+  "locations": {
+    "brisbane": "布里斯本",
+    "gold-coast": "黃金海岸",
+    "ipswich": "伊普斯維治"
+  },
+  "common": {
+    "learn-more": "了解更多",
+    "contact-us": "聯絡我哋",
+    "call-emergency": "打緊急熱線",
+    "available-24-7": "24小時服務",
+    "service-areas": "服務地區",
+    "recent-incidents": "近期事故"
+  }
+}

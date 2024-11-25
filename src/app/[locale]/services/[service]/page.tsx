@@ -1,140 +1,151 @@
-import React from 'react';
-import { generateServicePageContent } from '../../../../utils/contentGenerator';
-import { getServiceArea, getAllServiceAreas } from '../../../../config/serviceAreas';
-import { PageSEO } from '../../../../components/seo/PageSEO';
-import { Header } from '../../../../components/layout/Header/Header';
-import { Hero } from '../../../../components/layout/Hero/Hero';
-import { emergencyContact } from '../../../../config/project.config';
-import { 
-  Locale, 
-  getSupportedLocales, 
-  isValidLocale, 
-  getAlternateLinks 
-} from '../../../../config/i18n.config';
+"use client"
+
+import { notFound } from 'next/navigation'
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Phone } from "lucide-react"
+import { ServiceFeatures, ServiceList, ServiceStats } from '@/components/services/ServiceFeatures'
+import { ServiceAreaSelector } from '@/components/service-areas/ServiceAreaSelector'
+import { tracking } from '@/lib/tracking'
+import { analytics } from '@/lib/analytics'
+import { serviceStructure, type ServiceId } from '@/config/services'
 
 interface ServicePageProps {
   params: {
-    service: string;
-    locale: string;
-  };
+    service: string
+  }
 }
 
-export async function generateStaticParams() {
-  const services = ['water-damage', 'fire-damage', 'mould'];
-  const locales = getSupportedLocales();
-  const serviceAreas = getAllServiceAreas();
-  
-  return services.flatMap(service => 
-    locales.flatMap(locale => 
-      serviceAreas.map(area => ({
-        service,
-        locale,
-        area: area.name.toLowerCase()
-      }))
-    )
-  );
+function getServiceData(serviceId: string) {
+  return serviceStructure[serviceId as ServiceId] || null;
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  const { service, locale: rawLocale } = params;
-  const locale = isValidLocale(rawLocale) ? rawLocale : 'en-AU';
-  const serviceAreas = getAllServiceAreas();
-  
-  // Generate content for each service area
-  const areaContents = serviceAreas.map(area => {
-    const pageContent = generateServicePageContent(
-      service,
-      area.name,
-      area.regions[0].historicalEvents,
-      locale
-    );
-    return {
-      area: area.name,
-      content: pageContent
-    };
-  });
+  const service = getServiceData(params.service);
+  if (!service) return notFound();
 
-  const alternateLanguages = getAlternateLinks(`/services/${service}`);
+  // Track page view
+  if (typeof window !== 'undefined') {
+    analytics.trackPageView(`/services/${params.service}`);
+  }
+
+  const handleEmergencyCall = () => {
+    tracking.trackEmergencyContact('phone', params.service);
+  };
+
+  const handleServiceRequest = () => {
+    tracking.trackInteraction('service-request', params.service);
+  };
+
+  // Transform service data for ServiceList component
+  const serviceFeatures = service.services.map(subService => ({
+    title: subService.name,
+    description: subService.description,
+    features: [...subService.features] // Spread readonly array into mutable array
+  }));
+
+  // Transform service data for ServiceStats component
+  const serviceStats = [
+    {
+      value: '24/7',
+      label: 'Availability'
+    },
+    {
+      value: service.services.length.toString(),
+      label: 'Services'
+    },
+    {
+      value: service.responseTime.split(' ')[0],
+      label: 'Response Time'
+    },
+    {
+      value: '100%',
+      label: 'Satisfaction'
+    }
+  ];
 
   return (
-    <>
-      {areaContents.map(({ area, content: pageContent }) => (
-        <div key={area} className="mb-16">
-          <PageSEO
-            title={pageContent.title}
-            description={pageContent.metaDescription}
-            canonical={`/services/${service}`}
-            servicePage={pageContent}
-            location={pageContent.locations[0]}
-            alternateLanguages={alternateLanguages}
-          />
-          
-          <Header
-            currentLanguage={locale}
-            availableLanguages={getSupportedLocales()}
-            emergency={{
-              phone: emergencyContact.phone,
-              available: emergencyContact.available
-            }}
-          />
-
-          <main className="pt-16">
-            <Hero
-              backgroundImage={pageContent.heroContent.backgroundImage}
-              title={pageContent.heroContent.title}
-              subtitle={pageContent.heroContent.subtitle}
-              emergencyContact={emergencyContact.phone}
-              currentLocation={area}
-            />
-
-            <section className="py-16 bg-white" id={`service-details-${area.toLowerCase()}`}>
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="prose prose-lg mx-auto">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-8">
-                    {pageContent.serviceDetails.description}
-                  </h2>
-                  
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                        Our Services Include:
-                      </h3>
-                      <ul className="space-y-2">
-                        {pageContent.serviceDetails.features.map((feature, index) => (
-                          <li key={index} className="flex items-center text-gray-700">
-                            <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                        Service Area Coverage
-                      </h3>
-                      <div className="bg-gray-50 p-6 rounded-lg">
-                        <p className="text-gray-700 mb-4">
-                          We provide {pageContent.title} services across {area} including:
-                        </p>
-                        <ul className="grid grid-cols-2 gap-2">
-                          {pageContent.locations[0].serviceArea.slice(0, 6).map((suburb, index) => (
-                            <li key={index} className="text-gray-600">
-                              {suburb}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </main>
+    <main className="container mx-auto px-4 py-12">
+      {/* Hero Section */}
+      <div className="max-w-4xl mx-auto text-center mb-12">
+        <h1 className="text-4xl font-bold mb-4">
+          {service.title}
+        </h1>
+        <p className="text-xl text-gray-600 mb-8">
+          {service.longDescription}
+        </p>
+        <div className="flex justify-center gap-4">
+          <a href="tel:1300309361" onClick={handleEmergencyCall}>
+            <Button size="lg" className="gap-2">
+              <Phone className="h-5 w-5" />
+              1300 309 361
+            </Button>
+          </a>
+          <Button 
+            variant="outline" 
+            size="lg"
+            onClick={handleServiceRequest}
+          >
+            Request Service
+          </Button>
         </div>
-      ))}
-    </>
-  );
+      </div>
+
+      {/* Service Features */}
+      <div className="mb-16">
+        <ServiceFeatures serviceName={params.service} />
+      </div>
+
+      {/* Service Stats */}
+      <div className="mb-16">
+        <ServiceStats stats={serviceStats} />
+      </div>
+
+      {/* Service List */}
+      <div className="mb-16">
+        <h2 className="text-2xl font-bold text-center mb-8">
+          Our {service.title} Services
+        </h2>
+        <ServiceList services={serviceFeatures} />
+      </div>
+
+      {/* Service Area Section */}
+      <div className="mb-16">
+        <h2 className="text-2xl font-bold text-center mb-8">
+          Check Your Service Area
+        </h2>
+        <ServiceAreaSelector />
+      </div>
+
+      {/* Call to Action */}
+      <Card className="bg-gray-50 border-gray-100">
+        <CardContent className="p-8 text-center">
+          <h2 className="text-2xl font-bold mb-4">
+            Need {service.title}?
+          </h2>
+          <p className="text-gray-600 mb-6">
+            {service.emergency 
+              ? 'Our team is available 24/7 for immediate response'
+              : 'Contact us for professional service'
+            }
+          </p>
+          <div className="flex justify-center gap-4">
+            <a href="tel:1300309361" onClick={handleEmergencyCall}>
+              <Button size="lg" className="gap-2">
+                <Phone className="h-5 w-5" />
+                1300 309 361
+              </Button>
+            </a>
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={handleServiceRequest}
+            >
+              Request Quote
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </main>
+  )
 }

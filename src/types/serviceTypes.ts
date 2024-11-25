@@ -1,38 +1,52 @@
-export interface HeroContent {
-  title: string;
-  subtitle: string;
-  backgroundImage: string;
+export interface EmergencyInfo {
+  responseTime: string;
+  isAvailable: boolean;
+  phone: string;
+  emergencyLevel: 'high' | 'medium' | 'low';
 }
 
-export interface ServiceDetails {
-  description: string;
-  features: string[];
-  emergencyResponse: boolean;
+export interface ServiceCenter {
+  lat: number;
+  lng: number;
+  address: string;
 }
 
-export interface ServicePage {
-  slug: string;
-  title: string;
-  metaDescription: string;
-  heroContent: HeroContent;
-  serviceDetails: ServiceDetails;
-  locations: Location[];
-}
-
-export interface Location {
+export interface ServiceArea {
+  id: string;
   name: string;
-  slug: string;
-  coordinates: {
-    lat: number;
-    lng: number;
+  suburbs: string[];
+  postCodes: string[];
+  emergencyInfo: EmergencyInfo;
+  serviceCenter: ServiceCenter;
+  coverage: {
+    primary: string[];
+    secondary: string[];
   };
-  serviceArea: string[];
-  historicalEvents?: DisasterEvent[];
 }
 
-export interface DisasterEvent {
-  date: string;
-  type: string;
-  description: string;
-  severity: number;
+export interface ServiceRadiusInfo {
+  priority: number;
+  standard: number;
+  extended: number;
+  maxResponse: {
+    priority: number;
+    standard: number;
+    extended: number;
+  };
 }
+
+export interface ServiceAreaProps {
+  areas: ServiceArea[];
+  selectedArea?: string;
+  onSelect?: (area: string) => void;
+  className?: string;
+}
+
+export interface ServiceabilityResult {
+  isServiceable: boolean;
+  estimatedResponse: number;
+  distance: number;
+  nearestCenter: ServiceCenter;
+}
+
+export type ResponseLevel = 'priority' | 'standard' | 'extended' | 'outside';

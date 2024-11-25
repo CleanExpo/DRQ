@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "Pagina Non Trovata",
+      "description": "La pagina che stai cercando non esiste.",
+      "quick-links": "Collegamenti Rapidi"
+    },
+    "title": "Qualcosa è Andato Storto",
+    "description": "Ci dispiace, ma qualcosa è andato storto. Riprova o contatta l'assistenza se il problema persiste.",
+    "reload": "Ricarica Pagina",
+    "home": "Torna alla Home"
+  },
+  "emergency": {
+    "need-help": "Hai Bisogno di Aiuto Urgente?",
+    "call-now": "Chiama Ora",
+    "call": "Chiama la Linea di Emergenza",
+    "available": "Disponibile 24/7"
+  },
+  "service": {
+    "water-damage": "Danni da Acqua",
+    "fire-damage": "Danni da Incendio",
+    "mould-remediation": "Bonifica dalla Muffa",
+    "emergency-response": "Risposta di Emergenza",
+    "restoration": "Servizi di Restauro"
+  },
+  "navigation": {
+    "service-areas": "Zone di Servizio",
+    "services": "Servizi",
+    "contact": "Contatti",
+    "emergency": "Emergenza",
+    "home": "Home"
+  },
+  "locations": {
+    "brisbane": "Brisbane",
+    "gold-coast": "Gold Coast",
+    "ipswich": "Ipswich"
+  },
+  "common": {
+    "learn-more": "Scopri di Più",
+    "contact-us": "Contattaci",
+    "call-emergency": "Chiama la Linea di Emergenza",
+    "available-24-7": "Disponibile 24/7",
+    "service-areas": "Zone di Servizio",
+    "recent-incidents": "Incidenti Recenti"
+  }
+}

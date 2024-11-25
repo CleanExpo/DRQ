@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "Hindi Nahanap ang Pahina",
+      "description": "Ang hinahanap mong pahina ay hindi umiiral.",
+      "quick-links": "Mabilis na mga Link"
+    },
+    "title": "May Mali ang Nangyari",
+    "description": "Paumanhin, ngunit may mali ang nangyari. Pakisubukang muli o makipag-ugnayan sa suporta kung magpatuloy ang problema.",
+    "reload": "I-reload ang Pahina",
+    "home": "Bumalik sa Home"
+  },
+  "emergency": {
+    "need-help": "Kailangan ng Emergency na Tulong?",
+    "call-now": "Tumawag Ngayon",
+    "call": "Tumawag sa Emergency Line",
+    "available": "Bukas 24/7"
+  },
+  "service": {
+    "water-damage": "Pinsala ng Tubig",
+    "fire-damage": "Pinsala ng Sunog",
+    "mould-remediation": "Pagtanggal ng Amag",
+    "emergency-response": "Emergency Response",
+    "restoration": "Serbisyo ng Restoration"
+  },
+  "navigation": {
+    "service-areas": "Mga Lugar ng Serbisyo",
+    "services": "Mga Serbisyo",
+    "contact": "Makipag-ugnayan",
+    "emergency": "Emergency",
+    "home": "Home"
+  },
+  "locations": {
+    "brisbane": "Brisbane",
+    "gold-coast": "Gold Coast",
+    "ipswich": "Ipswich"
+  },
+  "common": {
+    "learn-more": "Alamin pa",
+    "contact-us": "Makipag-ugnayan sa Amin",
+    "call-emergency": "Tumawag sa Emergency Line",
+    "available-24-7": "Bukas 24/7",
+    "service-areas": "Mga Lugar ng Serbisyo",
+    "recent-incidents": "Mga Kamakailang Insidente"
+  }
+}

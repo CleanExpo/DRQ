@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "페이지를 찾을 수 없습니다",
+      "description": "찾으시는 페이지가 존재하지 않습니다.",
+      "quick-links": "빠른 링크"
+    },
+    "title": "문제가 발생했습니다",
+    "description": "죄송합니다. 문제가 발생했습니다. 다시 시도하시거나 문제가 지속되면 지원팀에 문의해 주세요.",
+    "reload": "페이지 새로고침",
+    "home": "홈으로 돌아가기"
+  },
+  "emergency": {
+    "need-help": "긴급 지원이 필요하신가요?",
+    "call-now": "지금 전화하기",
+    "call": "긴급전화 연결",
+    "available": "24시간 연중무휴"
+  },
+  "service": {
+    "water-damage": "수해 복구",
+    "fire-damage": "화재 피해 복구",
+    "mould-remediation": "곰팡이 제거",
+    "emergency-response": "긴급 대응",
+    "restoration": "복구 서비스"
+  },
+  "navigation": {
+    "service-areas": "서비스 지역",
+    "services": "서비스",
+    "contact": "연락처",
+    "emergency": "긴급",
+    "home": "홈"
+  },
+  "locations": {
+    "brisbane": "브리즈번",
+    "gold-coast": "골드코스트",
+    "ipswich": "입스위치"
+  },
+  "common": {
+    "learn-more": "자세히 알아보기",
+    "contact-us": "문의하기",
+    "call-emergency": "긴급전화 연결",
+    "available-24-7": "24시간 연중무휴",
+    "service-areas": "서비스 지역",
+    "recent-incidents": "최근 사고"
+  }
+}

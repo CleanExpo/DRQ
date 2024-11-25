@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "页面未找到",
+      "description": "您要查找的页面不存在。",
+      "quick-links": "快速链接"
+    },
+    "title": "出现错误",
+    "description": "抱歉，出现了错误。请重试或如果问题持续存在请联系支持。",
+    "reload": "重新加载页面",
+    "home": "返回首页"
+  },
+  "emergency": {
+    "need-help": "需要紧急援助？",
+    "call-now": "立即致电",
+    "call": "拨打紧急热线",
+    "available": "24小时服务"
+  },
+  "service": {
+    "water-damage": "水灾损害",
+    "fire-damage": "火灾损害",
+    "mould-remediation": "霉菌治理",
+    "emergency-response": "紧急响应",
+    "restoration": "修复服务"
+  },
+  "navigation": {
+    "service-areas": "服务区域",
+    "services": "服务项目",
+    "contact": "联系我们",
+    "emergency": "紧急情况",
+    "home": "首页"
+  },
+  "locations": {
+    "brisbane": "布里斯班",
+    "gold-coast": "黄金海岸",
+    "ipswich": "伊普斯维奇"
+  },
+  "common": {
+    "learn-more": "了解更多",
+    "contact-us": "联系我们",
+    "call-emergency": "拨打紧急热线",
+    "available-24-7": "24小时全天候服务",
+    "service-areas": "服务区域",
+    "recent-incidents": "近期事件"
+  }
+}

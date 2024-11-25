@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "Página No Encontrada",
+      "description": "La página que estás buscando no existe.",
+      "quick-links": "Enlaces Rápidos"
+    },
+    "title": "Algo Salió Mal",
+    "description": "Lo sentimos, pero algo salió mal. Por favor, inténtalo de nuevo o contacta con soporte si el problema persiste.",
+    "reload": "Recargar Página",
+    "home": "Volver al Inicio"
+  },
+  "emergency": {
+    "need-help": "¿Necesitas Ayuda de Emergencia?",
+    "call-now": "Llamar Ahora",
+    "call": "Llamar a Línea de Emergencia",
+    "available": "Disponible 24/7"
+  },
+  "service": {
+    "water-damage": "Daños por Agua",
+    "fire-damage": "Daños por Incendio",
+    "mould-remediation": "Tratamiento de Moho",
+    "emergency-response": "Respuesta de Emergencia",
+    "restoration": "Servicios de Restauración"
+  },
+  "navigation": {
+    "service-areas": "Áreas de Servicio",
+    "services": "Servicios",
+    "contact": "Contacto",
+    "emergency": "Emergencia",
+    "home": "Inicio"
+  },
+  "locations": {
+    "brisbane": "Brisbane",
+    "gold-coast": "Gold Coast",
+    "ipswich": "Ipswich"
+  },
+  "common": {
+    "learn-more": "Más Información",
+    "contact-us": "Contáctanos",
+    "call-emergency": "Llamar a Línea de Emergencia",
+    "available-24-7": "Disponible 24/7",
+    "service-areas": "Áreas de Servicio",
+    "recent-incidents": "Incidentes Recientes"
+  }
+}

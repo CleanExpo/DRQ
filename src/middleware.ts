@@ -1,100 +1,49 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { languages, defaultLanguage } from './config/languages';
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import i18nConfig, { Locale } from './config/i18n.config'
 
-const PUBLIC_FILE = /\.(.*)$/;
-
-function parseAcceptLanguage(header: string | null): string[] {
-  if (!header) return [];
-  
-  return header
-    .split(',')
-    .map(lang => lang.split(';')[0].trim())
-    .filter(Boolean);
-}
-
-function getLocale(request: NextRequest): string {
-  // Check if the URL already has a locale
-  const pathname = request.nextUrl.pathname;
-  const pathnameLocale = pathname.split('/')[1];
-  if (languages.some(lang => lang.code === pathnameLocale)) {
-    return pathnameLocale;
-  }
-
-  // Get locale from cookie if available
-  const localeCookie = request.cookies.get('NEXT_LOCALE');
-  if (localeCookie?.value && languages.some(lang => lang.code === localeCookie.value)) {
-    return localeCookie.value;
-  }
-
-  // Parse Accept-Language header
-  const acceptLanguages = parseAcceptLanguage(
-    request.headers.get('accept-language')
-  );
-
-  // Find first matching language
-  const matchedLanguage = acceptLanguages.find(lang => 
-    languages.some(supportedLang => 
-      supportedLang.code.toLowerCase().startsWith(lang.toLowerCase())
-    )
-  );
-
-  if (matchedLanguage) {
-    const supportedLang = languages.find(lang => 
-      lang.code.toLowerCase().startsWith(matchedLanguage.toLowerCase())
-    );
-    if (supportedLang) {
-      return supportedLang.code;
-    }
-  }
-
-  return defaultLanguage;
-}
-
+/**
+ * Middleware function to handle locale-based routing
+ * Redirects to default locale if no locale is present in the URL
+ */
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const pathname = request.nextUrl.pathname
 
-  // Skip middleware for public files and API routes
-  if (
-    PUBLIC_FILE.test(pathname) ||
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api')
-  ) {
-    return NextResponse.next();
+  // Debug: Log current request path
+  console.log('[Middleware] Processing request for path:', pathname)
+
+  // Check if the pathname is missing a locale
+  const pathnameIsMissingLocale = i18nConfig.locales.every(
+    (locale: Locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  )
+
+  // Debug: Log locale check result
+  console.log('[Middleware] Path missing locale:', pathnameIsMissingLocale)
+
+  if (pathnameIsMissingLocale) {
+    const locale = i18nConfig.defaultLocale
+    
+    // Construct new URL, handling root path specially
+    const newUrl = new URL(
+      `/${locale}${pathname === '/' ? '' : pathname}`,
+      request.url
+    )
+
+    // Debug: Log redirect URL
+    console.log('[Middleware] Redirecting to:', newUrl.toString())
+
+    return NextResponse.redirect(newUrl)
   }
 
-  // Get the locale
-  const locale = getLocale(request);
-  const pathnameLocale = pathname.split('/')[1];
-
-  // Check if the URL already has a valid locale
-  if (languages.some(lang => lang.code === pathnameLocale)) {
-    // URL already has valid locale, continue
-    const response = NextResponse.next();
-    response.cookies.set('NEXT_LOCALE', pathnameLocale);
-    return response;
-  }
-
-  // Redirect to URL with locale
-  const newUrl = new URL(
-    `/${locale}${pathname === '/' ? '' : pathname}`,
-    request.url
-  );
-
-  // Copy search params
-  newUrl.search = request.nextUrl.search;
-
-  const response = NextResponse.redirect(newUrl);
-  response.cookies.set('NEXT_LOCALE', locale);
-
-  return response;
+  // Debug: Log when request is allowed to continue
+  console.log('[Middleware] Request has locale, continuing...')
+  return NextResponse.next()
 }
 
+// Configure which paths should be handled by middleware
 export const config = {
   matcher: [
-    // Skip all internal paths (_next)
-    '/((?!_next).*)',
-    // Optional: Skip all files in the public folder
-    '/((?!public).*)'
-  ],
-};
+    // Exclude certain paths from locale handling
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
+  ]
+}

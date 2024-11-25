@@ -13,7 +13,7 @@ export const EmergencyContact: React.FC<EmergencyContactProps> = ({
   available = true
 }) => {
   const handleClick = () => {
-    trackEmergencyContact('header', 'click');
+    trackEmergencyContact('interaction', 'emergency-contact-click');
   };
 
   const formattedPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');

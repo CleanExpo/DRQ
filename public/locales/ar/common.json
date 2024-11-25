@@ -1,0 +1,46 @@
+{
+  "error": {
+    "404": {
+      "title": "الصفحة غير موجودة",
+      "description": "الصفحة التي تبحث عنها غير موجودة.",
+      "quick-links": "روابط سريعة"
+    },
+    "title": "حدث خطأ ما",
+    "description": "نأسف، ولكن حدث خطأ ما. يرجى المحاولة مرة أخرى أو الاتصال بالدعم إذا استمرت المشكلة.",
+    "reload": "إعادة تحميل الصفحة",
+    "home": "العودة إلى الصفحة الرئيسية"
+  },
+  "emergency": {
+    "need-help": "هل تحتاج إلى مساعدة طارئة؟",
+    "call-now": "اتصل الآن",
+    "call": "اتصل بخط الطوارئ",
+    "available": "متاح 24/7"
+  },
+  "service": {
+    "water-damage": "أضرار المياه",
+    "fire-damage": "أضرار الحريق",
+    "mould-remediation": "معالجة العفن",
+    "emergency-response": "الاستجابة للطوارئ",
+    "restoration": "خدمات الترميم"
+  },
+  "navigation": {
+    "service-areas": "مناطق الخدمة",
+    "services": "الخدمات",
+    "contact": "اتصل بنا",
+    "emergency": "طوارئ",
+    "home": "الرئيسية"
+  },
+  "locations": {
+    "brisbane": "برزبن",
+    "gold-coast": "جولد كوست",
+    "ipswich": "إبسويتش"
+  },
+  "common": {
+    "learn-more": "اعرف المزيد",
+    "contact-us": "اتصل بنا",
+    "call-emergency": "اتصل بخط الطوارئ",
+    "available-24-7": "متاح 24/7",
+    "service-areas": "مناطق الخدمة",
+    "recent-incidents": "الحوادث الأخيرة"
+  }
+}

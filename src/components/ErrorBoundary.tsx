@@ -1,9 +1,12 @@
+'use client';
+
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { reportError, getUserFriendlyMessage } from '../utils/errorHandler';
 import { emergencyContact } from '../config/project.config';
 
 interface Props {
   children: ReactNode;
+  locale: string;
 }
 
 interface State {
@@ -18,75 +21,45 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   public static getDerivedStateFromError(error: Error): State {
-    return {
-      hasError: true,
-      error
-    };
+    return { hasError: true, error };
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    reportError(error);
-    console.error('Uncaught error:', error, errorInfo);
+    reportError(error, errorInfo);
   }
-
-  private handleRetry = () => {
-    this.setState({ hasError: false, error: null });
-    window.location.reload();
-  };
-
-  private handleHomeNavigation = () => {
-    window.location.href = '/';
-  };
 
   public render() {
     if (this.state.hasError) {
+      const friendlyMessage = getUserFriendlyMessage(this.state.error?.message || '', this.props.locale);
+      
       return (
-        <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full">
-            <h1 className="text-2xl font-bold text-red-600 mb-4">
-              Something went wrong
-            </h1>
-            
-            <p className="text-gray-600 mb-6">
-              {this.state.error 
-                ? getUserFriendlyMessage(this.state.error)
-                : "We're sorry, but something went wrong. Please try again or contact support if the problem persists."}
-            </p>
-
-            {/* Emergency Contact */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-              <p className="text-blue-800 font-semibold">
-                Call Emergency Line: {emergencyContact.phone}
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+          <div className="max-w-lg w-full space-y-8 text-center">
+            <div>
+              <h2 className="mt-6 text-3xl font-bold text-gray-900">
+                Oops! Something went wrong
+              </h2>
+              <p className="mt-2 text-sm text-gray-600">
+                {friendlyMessage}
               </p>
             </div>
-
-            {/* Error Details (Development Only) */}
-            {process.env.NODE_ENV === 'development' && this.state.error && (
-              <div 
-                className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6 font-mono text-sm"
-                data-testid="error-details"
+            <div className="mt-8">
+              <p className="text-sm text-gray-500">
+                Need immediate assistance?
+              </p>
+              <a
+                href={`tel:${emergencyContact.phone}`}
+                className="mt-3 inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
               >
-                <h2 className="font-bold mb-2">Error Details:</h2>
-                <p className="text-red-600">{this.state.error.message}</p>
-                <p className="text-gray-600 mt-2">{this.state.error.stack}</p>
-              </div>
-            )}
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={this.handleRetry}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex-1"
-              >
-                Reload Page
-              </button>
-              <button
-                onClick={this.handleHomeNavigation}
-                className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors flex-1"
-              >
-                Return Home
-              </button>
+                Call {emergencyContact.phone}
+              </a>
             </div>
+            <button
+              onClick={() => window.location.reload()}
+              className="mt-4 text-sm text-blue-600 hover:text-blue-500"
+            >
+              Try again
+            </button>
           </div>
         </div>
       );
