@@ -1,75 +1,39 @@
-import clientPromise from '@/lib/mongodb';
-import { Collection } from 'mongodb';
+type CacheOptions = {
+  type: string;
+  ttl: number;
+  useMemoryCache?: boolean;
+};
 
-interface CacheItem {
-  key: string;
-  value: any;
-  expiresAt: Date;
+const memoryCache = new Map<string, { data: any; expires: number }>();
+
+export function generateCacheKey(parts: (string | number)[]): string {
+  return parts.join(':');
 }
 
-class Cache {
-  private collection: Promise<Collection<CacheItem>>;
-
-  constructor() {
-    this.collection = this.initializeCollection();
+export async function getCachedData<T>(
+  key: string,
+  fetchFn: () => Promise<T>,
+  options: CacheOptions
+): Promise<T> {
+  // Check memory cache first if enabled
+  if (options.useMemoryCache) {
+    const cached = memoryCache.get(key);
+    if (cached && cached.expires > Date.now()) {
+      return cached.data as T;
+    }
+    memoryCache.delete(key);
   }
 
-  private async initializeCollection(): Promise<Collection<CacheItem>> {
-    const client = await clientPromise;
-    const db = client.db('drq-cache');
-    return db.collection<CacheItem>('cache');
-  }
+  // Fetch fresh data
+  const data = await fetchFn();
 
-  async set(key: string, value: any, ttlSeconds: number = 3600): Promise<void> {
-    const collection = await this.collection;
-    const expiresAt = new Date(Date.now() + ttlSeconds * 1000);
-
-    await collection.updateOne(
-      { key },
-      {
-        $set: {
-          value,
-          expiresAt,
-        },
-      },
-      { upsert: true }
-    );
-  }
-
-  async get(key: string): Promise<any | null> {
-    const collection = await this.collection;
-    const item = await collection.findOne({
-      key,
-      expiresAt: { $gt: new Date() },
-    });
-
-    return item ? item.value : null;
-  }
-
-  async delete(key: string): Promise<void> {
-    const collection = await this.collection;
-    await collection.deleteOne({ key });
-  }
-
-  async clear(): Promise<void> {
-    const collection = await this.collection;
-    await collection.deleteMany({});
-  }
-
-  async cleanup(): Promise<void> {
-    const collection = await this.collection;
-    await collection.deleteMany({
-      expiresAt: { $lte: new Date() },
+  // Store in memory cache if enabled
+  if (options.useMemoryCache) {
+    memoryCache.set(key, {
+      data,
+      expires: Date.now() + options.ttl
     });
   }
-}
 
-// Export a singleton instance
-export const cache = new Cache();
-
-// Cleanup expired items periodically (every hour)
-if (typeof window === 'undefined') { // Only run on server
-  setInterval(() => {
-    cache.cleanup().catch(console.error);
-  }, 3600000);
+  return data;
 }

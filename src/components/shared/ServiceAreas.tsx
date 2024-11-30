@@ -11,7 +11,7 @@ export const ServiceAreas = () => {
             key={index}
             className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow"
           >
-            {area}
+            {typeof area === 'string' ? area : area.name}
           </div>
         ))}
       </div>

@@ -7,16 +7,19 @@ import { ProcessSteps } from '../../../../components/shared/ProcessSteps';
 import { ServicesOverview } from '../../../../components/shared/ServicesOverview';
 import { FAQ, FAQItem } from '../../../../components/shared/FAQ';
 import { SchemaProvider } from '../../../../components/SchemaProvider';
-import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema } from '../../../../utils/schema';
 import { generateServiceMeta } from '../../../../utils/meta';
-import { SERVICES } from '../../../../constants/services';
 
-const waterDamageService = SERVICES.find(s => s.name === 'Water Damage')!;
+// Hardcode service data for now
+const waterDamageService = {
+  name: 'Water Damage',
+  href: '/en-AU/services/water-damage',
+  description: '24/7 emergency water damage restoration services for homes and businesses'
+};
 
 export const metadata: Metadata = generateServiceMeta({
   title: 'Water Damage Restoration Services Brisbane | Disaster Recovery QLD',
   description: 'Professional water damage restoration services available 24/7. Expert water extraction, structural drying, and property restoration in Brisbane and surrounding areas.',
-  path: waterDamageService.href,
+  path: '/en-AU/services/water-damage',
   imageUrl: '/images/services/water-damage.jpg',
   keywords: [
     'water damage restoration',
@@ -105,16 +108,46 @@ export default function WaterDamagePage() {
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Services', url: '/services' },
-    { name: 'Water Damage', url: waterDamageService.href }
+    { name: 'Water Damage', url: '/en-AU/services/water-damage' }
   ];
 
   return (
     <>
       <SchemaProvider 
         schemas={[
-          generateServiceSchema(waterDamageService),
-          generateBreadcrumbSchema(breadcrumbs),
-          generateFAQSchema(faqs)
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Water Damage Restoration",
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "Disaster Recovery Queensland"
+            },
+            "areaServed": "Brisbane and South East Queensland",
+            "description": "Professional water damage restoration services available 24/7"
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": breadcrumbs.map((item, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "name": item.name,
+              "item": `https://disasterrecoveryqld.au${item.url}`
+            }))
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map(faq => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+              }
+            }))
+          }
         ]} 
       />
       <div className="flex flex-col gap-12 py-8">
