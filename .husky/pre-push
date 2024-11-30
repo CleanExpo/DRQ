@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run full test suite
+npm run test:ci
+
+# Build check
+npm run build
+
+# Run security audit
+npm audit
+
+# Check for outdated packages
+npm outdated
+
+# Generate documentation
+npm run docs:generate
+
+# Validate branch naming convention
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+BRANCH_REGEX="^(feature|fix|hotfix)/[a-z0-9-]+$"
+
+if ! [[ $BRANCH_NAME =~ $BRANCH_REGEX ]]; then
+  echo "Error: Branch name '$BRANCH_NAME' does not follow the convention"
+  echo "Please use: feature/<name>, fix/<name>, or hotfix/<name>"
+  exit 1
+fi

@@ -1,124 +1,226 @@
 # DRQ Website
 
-## Branch Structure
+## Project Overview
 
-This project uses a structured branching strategy to manage different aspects of development. Here's an overview of our branches:
+Disaster Recovery Queensland website built with Next.js, TypeScript, and MongoDB.
 
-### 1. Core Infrastructure Branches
+## Development Setup
 
-- `init-setup`: Project initialization (Next.js, TypeScript, Tailwind CSS, shadcn/ui)
-- `seo-metadata`: SEO and metadata implementation
-- `i18n-setup`: Internationalization and language switchers
+### Prerequisites
 
-### 2. UI Component Branches
+- Node.js >= 18.17.0
+- npm >= 10.2.3
+- VSCode with recommended extensions
 
-- `ui-header-footer`: Site header and footer components
-- `ui-homepage`: Homepage structure and components
-- `ui-service-pages`: Service-specific pages with dynamic rendering
-- `ui-emergency-components`: Emergency response UI elements (alerts, timers, contact cards)
+### Initial Setup
 
-### 3. Content & Data Handling Branches
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd drq-website
+```
 
-- `data-service-areas`: Service areas, regions, and historical event data
-- `data-dynamic-pages`: Dynamic page generation logic
-- `cms-integration`: CMS connection and integration
+2. Install dependencies:
+```bash
+npm install
+```
 
-### 4. Performance & Optimization Branches
+3. Open the workspace in VSCode:
+```bash
+code drq-website.code-workspace
+```
 
-- `perf-optimization`: Performance optimization (images, JavaScript bundles)
-- `analytics-monitoring`: Analytics and monitoring tools integration
+4. Install recommended extensions when prompted
 
-### 5. Testing & Deployment Branches
+### Environment Configuration
 
-- `testing`: Test implementation and configuration
-- `deployment-setup`: Deployment configurations and CI/CD pipelines
+1. Copy the environment template:
+```bash
+cp .env.example .env.local
+```
+
+2. Update the following variables:
+```env
+NEXT_PUBLIC_SITE_URL=http://localhost:3002
+MONGODB_URI=your_mongodb_connection_string
+```
 
 ## Development Workflow
 
-1. **Branch Selection**
-   - Choose the appropriate branch for your task based on the categories above
-   - Ensure you're working on the most recent version: `git pull origin branch-name`
+### Branch Management
 
-2. **Development Process**
-   - Create feature-specific branches from these main category branches if needed
-   - Follow TypeScript and project coding standards
-   - Commit regularly with clear, descriptive messages
+- Main branch: Production-ready code
+- Development branch: Integration and testing
+- Feature branches: Individual features and fixes
 
-3. **Code Review & Merging**
-   - Submit pull requests to merge into the category branch
-   - Ensure all tests pass before requesting review
-   - Address review comments promptly
-
-4. **Conflict Resolution**
-   - Keep branches focused and minimal in scope to reduce conflicts
-   - Regularly sync with the main branch
-   - Resolve conflicts at the feature level before merging to main
-
-## Firebase Setup
-
-This project uses Firebase for authentication, database, and storage functionality. To set up Firebase in your development environment:
-
-1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-
-2. Copy your Firebase configuration from the Firebase Console:
-   - Go to Project Settings
-   - Under "Your apps", create a new web app or select an existing one
-   - Copy the configuration object
-
-3. Create a `.env.local` file in the root directory with the following variables:
-```env
-NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+Branch naming convention:
+```
+feature/[feature-name]
+fix/[issue-name]
 ```
 
-## Firebase Utilities
+### Running the Project
 
-The project includes several Firebase utility functions in `src/utils/firebase.ts`:
-
-### Authentication
-- `useAuth()`: Hook for accessing the current user and auth state
-- `signIn(email, password)`: Sign in with email and password
-- `signUp(email, password)`: Create a new user account
-- `logOut()`: Sign out the current user
-
-### Firestore Database
-- `createDocument(collection, docId, data)`: Create a new document
-- `getDocument(collection, docId)`: Get a document by ID
-- `updateDocument(collection, docId, data)`: Update a document
-- `deleteDocument(collection, docId)`: Delete a document
-- `queryDocuments(collection, field, operator, value)`: Query documents
-
-### Storage
-- `uploadFile(path, file)`: Upload a file to Firebase Storage
-- `deleteFile(path)`: Delete a file from Firebase Storage
-
-## Getting Started
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Set up Firebase configuration as described above
-4. Choose your branch: `git checkout branch-name`
-5. Start development server: `npm run dev`
-
-## Type Safety
-
-All Firebase utility functions are fully typed with TypeScript for better development experience and type safety. When using these functions, provide the correct type parameters:
-
-```typescript
-interface UserProfile {
-  name: string;
-  email: string;
-  age: number;
-}
-
-// The function will enforce the UserProfile type
-const userDoc = await getDocument<UserProfile>('users', 'user123');
+Development server:
+```bash
+npm run dev
 ```
 
-## Contact
+Build for production:
+```bash
+npm run build
+npm start
+```
 
-For questions or issues, please contact the development team lead.
+### Code Quality Tools
+
+- ESLint: JavaScript/TypeScript linting
+- Prettier: Code formatting
+- TypeScript: Static type checking
+
+Run checks:
+```bash
+npm run lint    # ESLint
+npm run format  # Prettier
+npm run type-check  # TypeScript
+```
+
+### VSCode Integration
+
+#### Workspace Features
+
+- Integrated debugging configurations
+- Custom task runners
+- Git integration with GitLens
+- API testing with Thunder Client
+- Project organization with Project Manager
+
+#### Key Shortcuts
+
+- Format document: `Shift + Alt + F`
+- Quick fix: `Ctrl + .`
+- Go to definition: `F12`
+- Find references: `Shift + F12`
+- Rename symbol: `F2`
+
+### MongoDB Cache System
+
+The project uses MongoDB for data caching:
+
+- Page content caching
+- API response caching
+- Static asset caching
+
+Cache management:
+```bash
+# Clear all caches
+npm run cache:clear
+
+# Warm up caches
+npm run cache:warm
+```
+
+### API Development
+
+- Thunder Client collections available in `.thunder-client/`
+- Environment-specific API configurations
+- Automatic request logging and monitoring
+
+### Documentation
+
+- API documentation generated with JSDoc
+- Component documentation in Storybook
+- Type definitions and interfaces
+
+Generate documentation:
+```bash
+npm run docs:generate
+```
+
+### Testing
+
+Run tests:
+```bash
+npm run test          # All tests
+npm run test:watch    # Watch mode
+npm run test:coverage # Coverage report
+```
+
+### Deployment
+
+Deployment stages:
+1. Development testing
+2. Staging verification
+3. Production release
+
+Deploy commands:
+```bash
+npm run deploy:staging
+npm run deploy:production
+```
+
+### Monitoring
+
+- Winston logger integration
+- Sentry error tracking
+- Performance monitoring
+
+View logs:
+```bash
+npm run logs:view
+```
+
+### Common Issues
+
+#### Package Installation
+
+If you encounter package installation issues:
+1. Clear npm cache:
+```bash
+npm cache clean --force
+```
+
+2. Delete node_modules:
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### TypeScript Errors
+
+For TypeScript errors:
+1. Clear TypeScript cache:
+```bash
+npm run clean:typescript
+```
+
+2. Regenerate types:
+```bash
+npm run generate:types
+```
+
+### Project Structure
+
+```
+├── src/
+│   ├── app/          # Next.js app directory
+│   ├── components/   # React components
+│   ├── lib/          # Core utilities
+│   ├── models/       # MongoDB models
+│   ├── types/        # TypeScript types
+│   └── utils/        # Helper functions
+├── public/           # Static assets
+├── docs/            # Documentation
+└── scripts/         # Build scripts
+```
+
+## Contributing
+
+1. Create a feature branch
+2. Make your changes
+3. Run tests and linting
+4. Submit a pull request
+
+## License
+
+[License details here]

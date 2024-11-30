@@ -1,0 +1,110 @@
+DRQ Website Installation Log 
+========================= 
+Started: Mon 11/25/2024 12:13:25.56 
+ 
+Cleaning Files: 
+Installing Dependencies: 
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated @humanwhocodes/config-array@0.11.14: Use @eslint/config-array instead
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated glob@7.1.7: Glob versions prior to v9 are no longer supported
+npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+npm warn deprecated eslint@8.54.0: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 379 packages, and audited 380 packages in 15s
+
+141 packages are looking for funding
+  run `npm fund` for details
+
+1 high severity vulnerability
+
+To address all issues, run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+Verifying Installation: 
+drq-website@0.1.0 C:\DRQ\DRQ Website
+├─┬ next@14.0.3
+│ ├── react-dom@18.2.0 deduped
+│ ├── react@18.2.0 deduped
+│ └─┬ styled-jsx@5.1.1
+│   └── react@18.2.0 deduped
+├─┬ react-dom@18.2.0
+│ └── react@18.2.0 deduped
+└── react@18.2.0
+
+drq-website@0.1.0 C:\DRQ\DRQ Website
+├─┬ @typescript-eslint/eslint-plugin@6.13.1
+│ ├─┬ @typescript-eslint/type-utils@6.13.1
+│ │ └── eslint@8.54.0 deduped
+│ ├─┬ @typescript-eslint/utils@6.13.1
+│ │ └── eslint@8.54.0 deduped
+│ ├── eslint@8.54.0 deduped
+│ └─┬ ts-api-utils@1.4.1
+│   └── typescript@5.3.2 deduped
+├─┬ @typescript-eslint/parser@6.13.1
+│ └── eslint@8.54.0 deduped
+├─┬ eslint-config-next@14.0.3
+│ ├─┬ eslint-import-resolver-typescript@3.6.3
+│ │ └── eslint@8.54.0 deduped
+│ ├─┬ eslint-plugin-import@2.31.0
+│ │ └── eslint@8.54.0 deduped
+│ ├─┬ eslint-plugin-jsx-a11y@6.10.2
+│ │ └── eslint@8.54.0 deduped
+│ ├─┬ eslint-plugin-react-hooks@5.0.0-canary-7118f5dd7-20230705
+│ │ └── eslint@8.54.0 deduped
+│ ├─┬ eslint-plugin-react@7.37.2
+│ │ └── eslint@8.54.0 deduped
+│ ├── eslint@8.54.0 deduped
+│ └── typescript@5.3.2 deduped
+├─┬ eslint-config-prettier@9.0.0
+│ └── eslint@8.54.0 deduped
+├─┬ eslint@8.54.0
+│ └─┬ @eslint-community/eslint-utils@4.4.1
+│   └── eslint@8.54.0 deduped
+├─┬ prettier-plugin-tailwindcss@0.5.7
+│ └── prettier@3.1.0 deduped
+├── prettier@3.1.0
+└── typescript@5.3.2
+
+Type Check: 
+
+> drq-website@0.1.0 type-check
+> tsc --noEmit
+
+Build Process: 
+
+> drq-website@0.1.0 build
+> next build
+
+   ▲ Next.js 14.0.3
+   - Environments: .env.local, .env.production
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4) 
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    141 B          84.1 kB
+├ ○ /_not-found                          870 B          84.8 kB
+└ λ /[locale]                            141 B          84.1 kB
++ First Load JS shared by all            83.9 kB
+  ├ chunks/472-b67f79dbdd2c1fe1.js       28.8 kB
+  ├ chunks/fd9d1056-7b52db27cfdaff1f.js  53.3 kB
+  ├ chunks/main-app-af10409167b76b81.js  220 B
+  └ chunks/webpack-eaecf79f9bf4b121.js   1.65 kB
+
+
+ƒ Middleware                             27.6 kB
+
+○  (Static)   prerendered as static content
+λ  (Dynamic)  server-rendered on demand using Node.js
+

@@ -1,0 +1,134 @@
+DRQ Website Version Verification Log 
+================================= 
+Started: Mon 11/25/2024 12:09:56.63 
+ 
+Node.js Version: 
+v22.11.0
+Next.js Version: 
+Next.js v15.0.3
+Package Versions: 
+drq-website@0.1.0 C:\DRQ\DRQ Website
+├─┬ @typescript-eslint/eslint-plugin@6.21.0
+│ └─┬ ts-api-utils@1.4.1
+│   └── typescript@5.7.2 deduped
+├─┬ eslint-config-next@14.2.18
+│ └── typescript@5.7.2 deduped
+├─┬ next@15.0.3
+│ ├── react-dom@18.3.1 deduped
+│ ├── react@18.3.1 deduped
+│ └─┬ styled-jsx@5.1.6
+│   └── react@18.3.1 deduped
+├─┬ react-dom@18.3.1
+│ └── react@18.3.1 deduped
+├── react@18.3.1
+└── typescript@5.7.2
+
+Available Updates: 
+Package                           Current   Wanted  Latest  Location                                       Depended by
+@types/node                       20.17.7  20.17.7  22.9.3  node_modules/@types/node                       DRQ Website
+@typescript-eslint/eslint-plugin   6.21.0   6.21.0  8.15.0  node_modules/@typescript-eslint/eslint-plugin  DRQ Website
+@typescript-eslint/parser          6.21.0   6.21.0  8.15.0  node_modules/@typescript-eslint/parser         DRQ Website
+eslint                             8.57.1   8.57.1  9.15.0  node_modules/eslint                            DRQ Website
+eslint-config-next                14.2.18  14.2.18  15.0.3  node_modules/eslint-config-next                DRQ Website
+prettier-plugin-tailwindcss        0.5.14   0.5.14   0.6.9  node_modules/prettier-plugin-tailwindcss       DRQ Website
+Package.json Check: 
+{
+  "name": "drq-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "next": "^15.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.39",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.54.0",
+    "eslint-config-next": "^14.0.3",
+    "eslint-config-prettier": "^9.1.0",
+    "postcss": "^8.4.31",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.7.2"
+  }
+}
+TypeScript Check: 
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+Build Check: 
+
+> drq-website@0.1.0 build
+> next build
+
+   ▲ Next.js 15.0.3
+   - Environments: .env.local, .env.production
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    139 B           100 kB
+├ ○ /_not-found                          896 B           101 kB
+└ ƒ /[locale]                            139 B           100 kB
++ First Load JS shared by all            99.9 kB
+  ├ chunks/4bd1b696-80bcaf75e1b4285e.js  52.5 kB
+  ├ chunks/517-d083b552e04dead1.js       45.5 kB
+  └ other shared chunks (total)          1.88 kB
+
+
+ƒ Middleware                             32.1 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

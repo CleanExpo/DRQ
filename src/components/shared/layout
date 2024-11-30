@@ -1,0 +1,43 @@
+import React from 'react'
+import Link from 'next/link'
+import { Globe, AlertTriangle, MapPin, Phone, ChevronRight } from 'lucide-react'
+
+const navigationItems = [
+  { name: 'Water Damage', icon: Globe, href: '/en-AU/services/water-damage' },
+  { name: 'Mould Remediation', icon: Globe, href: '/en-AU/services/mould-remediation' },
+  { name: 'Sewage Clean Up', icon: AlertTriangle, href: '/en-AU/services/sewage-cleanup' },
+  { name: 'Fire Damage', icon: Globe, href: '/en-AU/services/fire-damage' },
+  { name: 'Locations', icon: MapPin, href: '/en-AU/locations' },
+  { name: 'About Us', icon: Globe, href: '/en-AU/about' },
+  { name: 'Contact', icon: Phone, href: '/en-AU/contact' }
+]
+
+export const Navigation = () => {
+  return (
+    <nav className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 shadow-xl relative z-20">
+      <div className="max-w-6xl mx-auto px-4 py-4">
+        <div className="flex justify-between items-center gap-3">
+          {navigationItems.map(({ name, icon: Icon, href }) => (
+            <Link
+              key={name}
+              href={href}
+              className="group px-4 py-2.5 rounded-full 
+                       bg-blue-800/50 hover:bg-blue-700
+                       border border-blue-300/20 hover:border-blue-300/40
+                       transition-all duration-300 shadow-md text-sm 
+                       hover:shadow-lg hover:scale-105
+                       flex items-center gap-2"
+            >
+              <Icon size={14} className="text-blue-300 group-hover:text-white transition-colors" />
+              <span className="text-white">{name}</span>
+              <ChevronRight size={14} 
+                className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </Link>
+          ))}
+        </div>
+      </div>
+    </nav>
+  )
+}
+
+export default Navigation

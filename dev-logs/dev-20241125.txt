@@ -1,0 +1,8 @@
+DRQ Website Development Log 
+========================= 
+Started: Mon 11/25/2024 12:44:57.67 
+ 
+[34mDRQ Website Vercel Deployment[0m
+
+[34m1. Checking Vercel CLI...[0m
+[34m2. Checking Vercel login...[0m
