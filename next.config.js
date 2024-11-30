@@ -8,13 +8,27 @@ const nextConfig = {
     ignoreDuringBuilds: false,
   },
   images: {
-    domains: [
-      'localhost',
-      'disasterrecoveryqld.au',
-      'images.pexels.com',
-      'placehold.co',
-      'images.pexels.com'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'disasterrecoveryqld.au',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+      }
     ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   // Security headers
   async headers() {

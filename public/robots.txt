@@ -1,56 +1,11 @@
 # https://www.robotstxt.org/robotstxt.html
-
-# Allow all crawlers
 User-agent: *
 Allow: /
 
 # Sitemaps
 Sitemap: https://disasterrecoveryqld.au/sitemap.xml
 
-# Disallow crawling of specific paths
+# Disallow specific paths
 Disallow: /api/
 Disallow: /_next/
-Disallow: /static/
-
-# Language specific sitemaps
-Sitemap: https://disasterrecoveryqld.au/en-AU/sitemap.xml
-Sitemap: https://disasterrecoveryqld.au/zh/sitemap.xml
-
-# Rate limiting
-Crawl-delay: 1
-
-# Additional rules for specific bots
-User-agent: Googlebot
-Allow: /
-Disallow: /api/
-
-User-agent: Googlebot-Image
-Allow: /images/
-Allow: /public/images/
-
-User-agent: Bingbot
-Allow: /
-Disallow: /api/
-
-# Block specific bots that might cause issues
-User-agent: GPTBot
-Disallow: /
-
-User-agent: ChatGPT-User
-Disallow: /
-
-# Allow Google Mobile-Friendly Test
-User-agent: Googlebot-Mobile
-Allow: /
-
-# Social Media Crawlers
-User-agent: Twitterbot
-Allow: /
-Allow: /images/
-
-User-agent: facebookexternalhit
-Allow: /
-Allow: /images/
-
-# Host
-Host: https://disasterrecoveryqld.au
+Disallow: /*?*
