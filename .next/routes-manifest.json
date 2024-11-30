@@ -1,0 +1,292 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/:path*",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ],
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+    }
+  ],
+  "dynamicRoutes": [
+    {
+      "page": "/api/areas/check/[postcode]",
+      "regex": "^/api/areas/check/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPpostcode": "nxtPpostcode"
+      },
+      "namedRegex": "^/api/areas/check/(?<nxtPpostcode>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[locale]",
+      "regex": "^/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[locale]/about",
+      "regex": "^/([^/]+?)/about(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/about(?:/)?$"
+    },
+    {
+      "page": "/[locale]/areas",
+      "regex": "^/([^/]+?)/areas(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/areas(?:/)?$"
+    },
+    {
+      "page": "/[locale]/areas/[regionId]",
+      "regex": "^/([^/]+?)/areas/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale",
+        "nxtPregionId": "nxtPregionId"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/areas/(?<nxtPregionId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[locale]/blog",
+      "regex": "^/([^/]+?)/blog(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/blog(?:/)?$"
+    },
+    {
+      "page": "/[locale]/blog/[postId]",
+      "regex": "^/([^/]+?)/blog/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale",
+        "nxtPpostId": "nxtPpostId"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/blog/(?<nxtPpostId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[locale]/contact",
+      "regex": "^/([^/]+?)/contact(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/contact(?:/)?$"
+    },
+    {
+      "page": "/[locale]/emergency",
+      "regex": "^/([^/]+?)/emergency(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/emergency(?:/)?$"
+    },
+    {
+      "page": "/[locale]/faq",
+      "regex": "^/([^/]+?)/faq(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/faq(?:/)?$"
+    },
+    {
+      "page": "/[locale]/gallery",
+      "regex": "^/([^/]+?)/gallery(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/gallery(?:/)?$"
+    },
+    {
+      "page": "/[locale]/privacy",
+      "regex": "^/([^/]+?)/privacy(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/privacy(?:/)?$"
+    },
+    {
+      "page": "/[locale]/services",
+      "regex": "^/([^/]+?)/services(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/services(?:/)?$"
+    },
+    {
+      "page": "/[locale]/terms",
+      "regex": "^/([^/]+?)/terms(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/terms(?:/)?$"
+    },
+    {
+      "page": "/[locale]/testimonials",
+      "regex": "^/([^/]+?)/testimonials(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/testimonials(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/en-AU",
+      "regex": "^/en\\-AU(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU(?:/)?$"
+    },
+    {
+      "page": "/en-AU/about",
+      "regex": "^/en\\-AU/about(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/about(?:/)?$"
+    },
+    {
+      "page": "/en-AU/blog",
+      "regex": "^/en\\-AU/blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/blog(?:/)?$"
+    },
+    {
+      "page": "/en-AU/contact",
+      "regex": "^/en\\-AU/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/contact(?:/)?$"
+    },
+    {
+      "page": "/en-AU/emergency",
+      "regex": "^/en\\-AU/emergency(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/emergency(?:/)?$"
+    },
+    {
+      "page": "/en-AU/faq",
+      "regex": "^/en\\-AU/faq(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/faq(?:/)?$"
+    },
+    {
+      "page": "/en-AU/gallery",
+      "regex": "^/en\\-AU/gallery(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/gallery(?:/)?$"
+    },
+    {
+      "page": "/en-AU/privacy",
+      "regex": "^/en\\-AU/privacy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/privacy(?:/)?$"
+    },
+    {
+      "page": "/en-AU/service-areas",
+      "regex": "^/en\\-AU/service\\-areas(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/service\\-areas(?:/)?$"
+    },
+    {
+      "page": "/en-AU/services/commercial",
+      "regex": "^/en\\-AU/services/commercial(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/services/commercial(?:/)?$"
+    },
+    {
+      "page": "/en-AU/services/fire-damage",
+      "regex": "^/en\\-AU/services/fire\\-damage(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/services/fire\\-damage(?:/)?$"
+    },
+    {
+      "page": "/en-AU/services/flood-recovery",
+      "regex": "^/en\\-AU/services/flood\\-recovery(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/services/flood\\-recovery(?:/)?$"
+    },
+    {
+      "page": "/en-AU/services/mould-remediation",
+      "regex": "^/en\\-AU/services/mould\\-remediation(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/services/mould\\-remediation(?:/)?$"
+    },
+    {
+      "page": "/en-AU/services/sewage-cleanup",
+      "regex": "^/en\\-AU/services/sewage\\-cleanup(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/services/sewage\\-cleanup(?:/)?$"
+    },
+    {
+      "page": "/en-AU/services/water-damage",
+      "regex": "^/en\\-AU/services/water\\-damage(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/services/water\\-damage(?:/)?$"
+    },
+    {
+      "page": "/en-AU/terms",
+      "regex": "^/en\\-AU/terms(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/terms(?:/)?$"
+    },
+    {
+      "page": "/en-AU/testimonials",
+      "regex": "^/en\\-AU/testimonials(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en\\-AU/testimonials(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc"
+  },
+  "rewrites": []
+}
