@@ -1,7 +1,0 @@
-DRQ Website Postcode Test Log 
-========================== 
-Started: Mon 11/25/2024 15:14:40.99 
- 
-Valid Postcode Tests: 
-{"postcode":"4000","isServiced":true,"message":"Service is available in your area"}{"postcode":"4001","isServiced":true,"message":"Service is available in your area"}{"postcode":"4305","isServiced":true,"message":"Service is available in your area"}{"postcode":"4114","isServiced":true,"message":"Service is available in your area"}{"postcode":"4217","isServiced":true,"message":"Service is available in your area"}{"postcode":"4163","isServiced":true,"message":"Service is available in your area"}Invalid Postcode Tests: 
-{"postcode":"2000","isServiced":false,"message":"Sorry, we currently do not service this area"}{"postcode":"3000","isServiced":false,"message":"Sorry, we currently do not service this area"}{"postcode":"6000","isServiced":false,"message":"Sorry, we currently do not service this area"}Error Handling Tests: 

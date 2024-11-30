@@ -1,6 +1,0 @@
-DRQ Website Deployment Log 
-======================= 
-Started: Mon 11/25/2024 12:45:01.49 
- 
-Vercel CLI Check: 
-Login Check: 
